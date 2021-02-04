@@ -1,0 +1,157 @@
+
+@function rainbow($color, $h: null, $s: null, $l: null, $a: null) {
+	$rainbowH: var(--#{$color}-h); // 0deg to 360deg
+	$rainbowS: var(--#{$color}-s); // 0%	to 100%
+	$rainbowL: var(--#{$color}-l); // 0%	to 100%
+	$rainbowA: var(--#{$color}-a); // 0 to 1	
+
+	@if $h {
+    $rainbowH: calc( var(--#{$color}-h) #{$h});
+  }
+	
+	@if $s {
+    $rainbowS: calc( var(--#{$color}-s) #{$s});
+  }
+	
+	@if $l {
+    $rainbowL: calc( var(--#{$color}-l) #{$l});
+  }
+	
+	@if $a {
+    $rainbowA: calc( var(--#{$color}-a) #{$a});
+  }
+
+	@return hsla($rainbowH, $rainbowS, $rainbowL, $rainbowA);
+}
+
+@function is-number($val) {
+  @return type-of($val) == 'number';
+}
+
+@function is-angle($val) {
+  @return is-number($val) and index('deg' 'rad' 'grad' 'turn', unit($val)) != null;
+}
+
+@function is-percentage($val) {
+  @return is-number($val) and unit($val) == '%';
+}
+
+@function is-between-0-and-1($val) {
+  @return is-number($val) and $val <= 1 and $val >= 0;
+}
+
+@function v-darken($color, $val: 30%) {
+  @if (is-percentage($val) == false) {
+    @error "v-darken($color, $val) - $val unit should be: %";
+  }
+ 
+	@return rainbow($color, $l: "- #{$val}");
+}
+
+@function v-lighten($color, $val: 30%) {
+  @if (is-percentage($val) == false) {
+    @error "v-lighten($color, $val) - $val unit should be: %";
+  }
+
+	@return rainbow($color, $l: "+ #{$val}");
+}
+
+@function v-adjust-hue($color, $val: 20deg) {
+  @if (is-angle($val) == false) {
+    @error "v-adjust-hue($color, $val) - $val unit should be: 'deg', 'rad', 'grad', or 'turn'";
+  }
+
+	@return rainbow($color, $h: "+ #{$val}");
+}
+
+@function v-complement($color) {
+	@return rainbow($color, $h: "+ 180deg - 360deg");
+}
+
+@function v-desaturate($color, $val) {
+  @if (is-percentage($val) == false) {
+    @error "v-desaturate($color, $val) - $val unit should be: %";
+  }
+
+	@return rainbow($color, $s: "- #{$val}");
+}
+
+@function v-saturate($color, $val) {
+  @if (is-percentage($val) == false) {
+    @error "v-saturate($color, $val) - $val unit should be: %";
+  }
+
+	@return rainbow($color, $s: "+ #{$val}");
+}
+
+@function v-grayscale($color) {
+	@return rainbow($color, $s: "0%");
+}
+
+@function v-opacify($color, $val) {
+  @if (is-between-0-and-1($val) == false) {
+    @error "v-opacify($color, $val) - $val should be between 0 and 1";
+  }
+
+	@return rainbow($color, $a: "+ #{$val}");
+}
+
+@function v-transparentize($color, $val) {
+  @if (is-between-0-and-1($val) == false) {
+    @error "v-opacify($color, $val) - $val should be between 0 and 1";
+  }
+
+	@return rainbow($color, $a: "- #{$val}");
+}
+
+@function v-analagous($color, $num) {
+  @if ($num == 1) {
+    @return rainbow($color, $h: "+ 30deg - 360deg");
+  }
+
+  @if ($num == 2) {
+    @return rainbow($color, $h: "+ 60deg - 360deg");
+  }
+
+  @if ($num == 3) {
+    @return rainbow($color, $h: "+ 90deg - 360deg");
+  }
+}
+
+@function v-split-complementary($color, $num) {
+  @if ($num == 1) {
+    @return rainbow($color, $h: "+ 150deg - 360deg");
+  }
+
+  @if ($num == 2) {
+    @return rainbow($color, $h: "+ 210deg - 360deg");
+  }
+}
+
+@function v-triadic($color, $num) {
+  @if ($num == 1) {
+    @return rainbow($color, $h: "+ 120deg - 360deg");
+  }
+
+  @if ($num == 2) {
+    @return rainbow($color, $h: "+ 240deg - 360deg");
+  }
+}
+
+@function v-tetradic($color, $num) {
+  @if ($num == 1) {
+    @return rainbow($color, $h: "+ 90deg - 360deg");
+  }
+
+  @if ($num == 2) {
+    @return rainbow($color, $h: "+ 180deg - 360deg");
+  }
+
+  @if ($num == 3) {
+    @return rainbow($color, $h: "+ 270deg - 360deg");
+  }
+}
+
+@function v-complementary-min($color) {
+	@return rainbow($color, $h: "+ 90deg - 360deg", $s: "/ 2", $l: "- 25%" );
+}

@@ -1,0 +1,24 @@
+/*
+*
+* FUNCTIONS
+*
+*/
+@import 'functions';
+
+/*
+*
+* COLORS
+*
+*/
+$colors: (
+	'primary': #0000ff,
+	'secondary': #00ff15,
+);
+@import 'colors';
+
+/*
+*
+* CUSTOM
+*
+*/
+@import 'custom';

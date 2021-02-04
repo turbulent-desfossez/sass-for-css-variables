@@ -1,0 +1,9 @@
+:root {
+  @each $name, $color in $colors {
+    --#{$name}-h: #{hue($color)};
+    --#{$name}-s: #{saturation($color)};
+    --#{$name}-l: #{lightness($color)};
+    --#{$name}-a: #{alpha($color)}; 
+		--#{$name}: hsla(var(--#{$name}-h), var(--#{$name}-s), var(--#{$name}-l), var(--#{$name}-a));
+  }
+}

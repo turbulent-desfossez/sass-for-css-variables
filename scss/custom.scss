@@ -1,0 +1,159 @@
+html,
+body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.main-head,
+.content,
+.main-nav,
+.side,
+.ad,
+.main-footer {
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.main-head {
+  grid-area: header;
+  text-align: center;
+  background-color: var(--primary);
+  color: v-complement(primary);
+}
+
+.content {
+  grid-area: content;
+  justify-content: flex-start;
+  background-color: v-lighten(primary, 40%);
+  color: v-grayscale(primary);
+}
+
+.main-nav {
+  grid-area: nav;
+  background-color: v-transparentize(primary, 0.8);
+  color: v-lighten(primary, 40%);
+
+  button {
+    background-color: v-desaturate(primary, 20%);
+    color: v-lighten(primary, 40%);
+    outline: 0;
+    border-radius: 20px;
+    padding: 10px;
+    border: 0;
+
+    &:hover,
+    &:focus {
+      background-color: v-adjust-hue(primary, 50deg);
+      cursor: pointer;
+    }
+  }
+}
+
+.side {
+  grid-area: sidebar;
+  background-color: v-saturate(primary, 100%);
+}
+
+.ad {
+  grid-area: ad;
+  background-color: v-complement(primary);
+}
+
+.main-footer {
+  grid-area: footer;
+  background-color: v-darken(primary, 40%);
+  color: v-lighten(primary, 40%);
+}
+
+.wrapper {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: grid;
+  gap: 20px;
+  grid-template-areas:
+    "header"
+    "nav"
+    "content"
+    "sidebar"
+    "ad"
+    "footer";
+  background-color: v-darken(primary, 40%);
+  height: 100%;
+}
+
+@media (min-width: 500px) {
+  .wrapper {
+    grid-template-columns: 1fr 3fr;
+    grid-template-areas:
+      "header  header"
+      "nav     nav"
+      "sidebar content"
+      "ad      footer";
+  }
+}
+
+@media (min-width: 700px) {
+  .wrapper {
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-areas:
+      "header header  header"
+      "nav    content sidebar"
+      "nav    content ad"
+      "footer footer  footer"
+   }
+}
+
+.v-primary {
+  background-color: var(--primary);
+}
+
+.v-analagous-1 {
+  background-color: v-analagous(primary, 1);
+}
+
+.v-analagous-2 {
+  background-color: v-analagous(primary, 2);
+}
+
+.v-analagous-3 {
+  background-color: v-analagous(primary, 3);
+}
+
+.v-complement {
+  background-color: v-complement(primary);
+}
+
+.v-split-complementary-1 {
+  background-color: v-split-complementary(primary, 1);
+}
+
+.v-split-complementary-2 {
+  background-color: v-split-complementary(primary, 2);
+}
+
+.v-triadic-1 {
+  background-color: v-triadic(primary, 1);
+}
+
+.v-triadic-2 {
+  background-color: v-triadic(primary, 2);
+}
+
+.v-tetradic-1 {
+  background-color: v-tetradic(primary, 1);
+}
+
+.v-tetradic-2 {
+  background-color: v-tetradic(primary, 2);
+}
+
+.v-tetradic-3 {
+  background-color: v-tetradic(primary, 3);
+}
+
+.v-complementary-min {
+  background-color: v-complementary-min(primary);
+}
